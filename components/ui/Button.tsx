@@ -5,7 +5,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export default function Button({ variant = 'primary', loading, children, className = '', ...props }: ButtonProps) {
-  const base = 'relative font-display tracking-[0.15em] text-sm uppercase transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 px-5 py-3'
+  const base = [
+    'relative font-display tracking-[0.15em] text-sm uppercase transition-all duration-200',
+    'disabled:opacity-40 disabled:cursor-not-allowed',
+    'flex items-center gap-2 px-5 py-3',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neural-primary focus-visible:ring-offset-2 focus-visible:ring-offset-neural-bg',
+  ].join(' ')
   const styles = {
     primary: [
       'border border-neural-primary/80 text-neural-primary font-semibold',
@@ -22,10 +27,18 @@ export default function Button({ variant = 'primary', loading, children, classNa
     <button
       className={`${base} ${styles[variant]} ${className}`}
       disabled={loading || props.disabled}
+      aria-busy={loading}
+      aria-disabled={loading || props.disabled}
       {...props}
     >
       {loading && (
-        <svg className="animate-spin w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none">
+        <svg
+          className="animate-spin w-4 h-4 shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+          focusable="false"
+        >
           <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" strokeDasharray="31.4" strokeDashoffset="10" />
         </svg>
       )}

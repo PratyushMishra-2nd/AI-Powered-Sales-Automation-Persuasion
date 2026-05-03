@@ -29,7 +29,7 @@ export default function Page() {
       <NeuralNetwork isActive={isAIActive} />
       <Header />
       <Sidebar active={activeTool} onSelect={setActiveTool} />
-      <main className="relative z-10 ml-16 pt-14 min-h-screen">
+      <main id="main-content" className="relative z-10 ml-16 pt-14 min-h-screen" aria-label="Sales automation tools">
         {/* Dark content panel — network visible in margins, not behind readable content */}
         <div className="mx-4 my-4 border border-neural-border/40 bg-panel p-6 min-h-[calc(100vh-5rem)]">
           <ActiveTool />
