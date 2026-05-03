@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #030915;
+    color: #c8d8e8;
+    font-family: var(--font-mono), monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: #030915; }
+  ::-webkit-scrollbar-thumb { background: #1a2a3a; }
+  ::-webkit-scrollbar-thumb:hover { background: #00d4ff44; }
+
+  ::selection { background: #00d4ff33; color: #c8d8e8; }
+}
+
+/* Utility: dark content panel — Tailwind doesn't have /92 opacity by default */
+.bg-panel {
+  background-color: rgba(3, 9, 21, 0.87);
+}
+
+/* Sidebar grid — moved from inline style to avoid SSR hydration mismatch */
+.sidebar-bg {
+  background:
+    repeating-linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px, transparent 40px),
+    #080f1a;
+}
+
+@keyframes icon-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 0.65; transform: scale(1.08); }
+}
+.animate-icon-pulse {
+  animation: icon-pulse 3s ease-in-out infinite;
+}
+
+@layer components {
+  .scanline {
+    position: relative;
+  }
+  .scanline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.04) 2px,
+      rgba(0, 0, 0, 0.04) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  .scanline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(transparent, rgba(0, 212, 255, 0.03), transparent);
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
